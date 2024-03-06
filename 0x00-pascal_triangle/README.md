@@ -6,5 +6,4 @@
 - More info: https://www.cuemath.com/algebra/pascals-triangle/
 
 ## Description
-- Using the powers of 11 approach.
-- It is the most optimized approach to print Pascal’s triangle.
+
