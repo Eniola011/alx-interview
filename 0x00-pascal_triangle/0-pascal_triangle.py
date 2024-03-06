@@ -19,7 +19,7 @@ def pascal_triangle(n):
         row = [1]  # First element of each row is always 1
         for j in range(len(pascal[i - 1]) - 1):
             newrow = pascal[i - 1]
-            row.append(pascal[i - 1][j] + pascal[i - 1][j + 1])         
+            row.append(pascal[i - 1][j] + pascal[i - 1][j + 1])
         row.append(1)
         pascal.append(row)
     return pascal
