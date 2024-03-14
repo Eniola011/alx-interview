@@ -4,7 +4,7 @@ LockBoxes
 """
 
 
-def canUnlockAll(boxes)
+def canUnlockAll(boxes):
     """
     A method that determines if all the boxes can be opened.
     """
