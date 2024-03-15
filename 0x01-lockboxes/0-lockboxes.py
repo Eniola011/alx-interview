@@ -1,13 +1,15 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """
-LockBoxes
+  LockBoxes
 """
 
 
 def canUnlockAll(boxes):
     """
-    A method that determines if all the boxes can be opened.
+        A method that determines if all the boxes can be opened.
+        Return True if all boxes can be opened, else return False
     """
+    # first: what is in the box?
     opened_boxes = [0]
     for idx in opened_boxes:
         for box in boxes[idx]:
