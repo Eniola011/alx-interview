@@ -21,13 +21,13 @@ def makeChange(coins, total):
         return 0
     if len(coins) == 0:
         return -1
-    
+
     # Create a table to store results of subproblems
     dp = [float('inf')] * (total + 1)
-    
+
     # Base case (If given value is 0)
     dp[0] = 0
-    
+
     # Compute minimum coins required for all values from 1 to total
     for i in range(1, total + 1):
         for coin in coins:
@@ -35,7 +35,7 @@ def makeChange(coins, total):
                 subproblem = dp[i - coin]
                 if subproblem != float('inf') and subproblem + 1 < dp[i]:
                     dp[i] = subproblem + 1
-    
+
     if dp[total] == float('inf'):
         return -1
     else:
