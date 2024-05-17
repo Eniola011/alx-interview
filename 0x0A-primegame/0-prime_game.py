@@ -5,33 +5,37 @@ PrimeGame
 
 """
 
-
 def primes_sieve(limit):
-    # Sieve of Eratosthenes algorithm to find all primes up to limit
-    primes = []
+    """
+    Sieve of Eratosthenes algorithm to find all primes up to limit.
+    """
     sieve = [True] * (limit + 1)
     sieve[0] = sieve[1] = False
-    for num in range(2, int(limit**0.5) + 1):
+    for num in range(2, int(limit ** 0.5) + 1):
         if sieve[num]:
-            primes.append(num)
             for multiple in range(num * num, limit + 1, num):
                 sieve[multiple] = False
-    for num in range(int(limit**0.5) + 1, limit + 1):
-        if sieve[num]:
-            primes.append(num)
+    primes = [num for num, is_prime in enumerate(sieve) if is_prime]
     return primes
 
 def isWinner(x, nums):
-    # Function to determine the winner of the game
+    """
+    Determines the winner of the game after x rounds.
+    :param x: Number of rounds.
+    :param nums: List of n values for each round.
+    :return: Name of the player who won the most rounds, or None if there's a tie.
+    """
     def can_win(n):
-        # Function to determine if a player can win a game with given n
+        """
+        Determines if a player can win a game with the given n.
+        :param n: Maximum number in the set of consecutive integers.
+        :return: Name of the winning player.
+        """
         primes = primes_sieve(n)
         total_primes = len(primes)
         if total_primes % 2 == 0:
-            # If the total number of primes is even, Ben wins
             return "Ben"
         else:
-            # If the total number of primes is odd, Maria wins
             return "Maria"
 
     maria_wins = 0
@@ -46,7 +50,7 @@ def isWinner(x, nums):
 
     if maria_wins > ben_wins:
         return "Maria"
-    elif maria_wins < ben_wins:
+    elif ben_wins > maria_wins:
         return "Ben"
     else:
         return None
