@@ -1,56 +1,50 @@
 #!/usr/bin/python3
-"""
 
-PrimeGame
+""" Prime Game """
 
-"""
 
-def primes_sieve(limit):
+def is_prime(n):
     """
-    Sieve of Eratosthenes algorithm to find all primes up to limit.
+    Check if a number is a prime number.
     """
-    sieve = [True] * (limit + 1)
-    sieve[0] = sieve[1] = False
-    for num in range(2, int(limit ** 0.5) + 1):
-        if sieve[num]:
-            for multiple in range(num * num, limit + 1, num):
-                sieve[multiple] = False
-    primes = [num for num, is_prime in enumerate(sieve) if is_prime]
-    return primes
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def play_round(n):
+    """
+    Simulate a round of the game and determine the winner.
+    """
+    primes = [i for i in range(1, n + 1) if is_prime(i)]
+    turn = 0  # Maria's turn if 0, Ben's turn if 1
+    
+    while primes:
+        if len(primes) % 2 == 1:
+            return "Maria" if turn == 0 else "Ben"
+        first_prime = primes[0]
+        primes = [p for p in primes if p % first_prime != 0]
+        turn = 1 - turn  # Switch turn
+    
+    return "Ben" if turn == 0 else "Maria"
+
 
 def isWinner(x, nums):
     """
-    Determines the winner of the game after x rounds.
-    :param x: Number of rounds.
-    :param nums: List of n values for each round.
-    :return: Name of the player who won the most rounds, or None if there's a tie.
+    Determine the winner after x rounds.
     """
-    def can_win(n):
-        """
-        Determines if a player can win a game with the given n.
-        :param n: Maximum number in the set of consecutive integers.
-        :return: Name of the winning player.
-        """
-        primes = primes_sieve(n)
-        total_primes = len(primes)
-        if total_primes % 2 == 0:
-            return "Ben"
-        else:
-            return "Maria"
-
-    maria_wins = 0
-    ben_wins = 0
-
+    wins = {"Maria": 0, "Ben": 0}
+    
     for n in nums:
-        winner = can_win(n)
-        if winner == "Maria":
-            maria_wins += 1
-        elif winner == "Ben":
-            ben_wins += 1
-
-    if maria_wins > ben_wins:
+        winner = play_round(n)
+        wins[winner] += 1
+    
+    if wins["Maria"] > wins["Ben"]:
         return "Maria"
-    elif ben_wins > maria_wins:
+    elif wins["Ben"] > wins["Maria"]:
         return "Ben"
     else:
         return None
