@@ -9,3 +9,4 @@ Mock Technical Interview
 | Topic:6 | 0x06-starwars_api |
 | Topic:7 | 0x07-rotate_2d_matrix |
 | Topic:8 | 0x08-making_change |
+| Topic:9 | 0x09-island_perimeter |
