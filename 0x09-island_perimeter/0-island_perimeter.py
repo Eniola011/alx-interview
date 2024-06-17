@@ -1,30 +1,39 @@
 #!/usr/bin/python3
 """
-
-Island Perimeter
-
+Module for calculating the perimeter of an island in a grid.
 """
 
-
 def island_perimeter(grid):
-    if not grid:
+    """
+    Calculate the perimeter of the island described in grid.
+    
+    Parameters:
+    grid (list of list of int): The grid representing the map where 0 is water and 1 is land.
+    
+    Returns:
+    int: The perimeter of the island.
+    """
+    if not grid or not grid[0]:
         return 0
 
+    rows = len(grid)
+    cols = len(grid[0])
     perimeter = 0
-    rows, cols = len(grid), len(grid[0])
 
-    for i in range(rows):
-        for j in range(cols):
-            if grid[i][j] == 1:  # Land cell
-                perimeter += 4  # Start with 4 sides
-                # Check adjacent cells, subtract 1 for each adjacent land cell
-                if i > 0 and grid[i - 1][j] == 1:  # Up
-                    perimeter -= 1
-                if i < rows - 1 and grid[i + 1][j] == 1:  # Down
-                    perimeter -= 1
-                if j > 0 and grid[i][j - 1] == 1:  # Left
-                    perimeter -= 1
-                if j < cols - 1 and grid[i][j + 1] == 1:  # Right
-                    perimeter -= 1
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                # Check up
+                if r == 0 or grid[r-1][c] == 0:
+                    perimeter += 1
+                # Check down
+                if r == rows-1 or grid[r+1][c] == 0:
+                    perimeter += 1
+                # Check left
+                if c == 0 or grid[r][c-1] == 0:
+                    perimeter += 1
+                # Check right
+                if c == cols-1 or grid[r][c+1] == 0:
+                    perimeter += 1
 
     return perimeter
